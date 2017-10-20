@@ -1,25 +1,26 @@
 {
   "presets": [
-    "env"
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 versions",
+            "safari >= 7"
+          ]
+        }
+      }
+    ]
   ],
   "plugins": [
     "syntax-trailing-function-commas",
     "transform-async-to-generator",
-    "transform-es2015-destructuring",
-    "transform-es2015-parameters",
-    "transform-es2015-duplicate-keys",
-    "transform-es2015-modules-commonjs",
-    "transform-exponentiation-operator",
-    "syntax-class-properties",
-    "transform-class-properties",
-    [
-      "transform-runtime",
-      {
-        "helpers": false,
-        "polyfill": false,
-        "regenerator": true
-      }
-    ]
+    "babel-plugin-transform-es2015-destructuring",
+    "babel-plugin-transform-es2015-parameters",
+    "babel-plugin-transform-es2015-duplicate-keys",
+    "babel-plugin-transform-es2015-modules-commonjs",
+    "babel-plugin-transform-exponentiation-operator",
+    "babel-plugin-transform-runtime"
   ],
   "env": {
     "test": {
