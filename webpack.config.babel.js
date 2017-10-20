@@ -1,5 +1,5 @@
 "use strict";
-const Encore = require('webpackUtils/Encore.extend');
+const Encore = require('./webpackUtils/Encore.extend');
 import path from 'path';
 import FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin';
 // раскоментить, если сайт работает в cp1251
@@ -7,21 +7,21 @@ import FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin';
 
 import BComponent from './webpackUtils/BComponent';
 
-const app = (p = '') => {
-	let root = path.resolve(__dirname, 'site.name', 'public_html');
+const rootPath = (p = '') => {
+	let root = path.resolve(__dirname, '..');
 	return root + p;
 };
 
-Encore.BXComponent = new BComponent({root: path.resolve(__dirname, 'site.name', 'public_html')});
+Encore.BXComponent = new BComponent({root: rootPath()});
 
 process.noDeprecation = true;
 Encore
-	.setOutputPath('site.name/public_html')
-	.setPublicPath(path.resolve(__dirname, 'site.name', 'public_html'))
+	.setOutputPath('..')
+	.setPublicPath(rootPath())
 
 	// файлы выхода (out) надо указывать без расширения
-	.BXComponentJs('esd:grid', {out: 'script'})
-	.BXComponentStyle('esd:grid', {out: 'style'})
+	// .BXComponentJs('')
+	// .BXComponentStyle('bitrix:menu', {template:'top_new', siteTemplate: 'inner', out: 'style'})
 
 	.enableSassLoader()
 	.enableVueLoader()
@@ -38,7 +38,7 @@ const config = Encore.getWebpackConfig();
 if(!config.resolve.hasOwnProperty('modules')){
 	config.resolve = Object.assign({}, config.resolve, {
 		modules: [
-			app('/local/src/js'),
+			rootPath('/local/src/js'),
 			'node_modules', // указываем папку, откуда брать основные либы, иначе будут косяки
 		]
 	});

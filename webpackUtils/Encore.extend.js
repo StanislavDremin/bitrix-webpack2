@@ -58,13 +58,15 @@ Encore.BXComponentJs = (name, params = {}) => {
  * @constructor
  */
 Encore.BXComponentStyle = (name, params = {}) => {
+	let paramsCss = {app: 'app.sass', template: '.default', siteTemplate: false};
+
 	if(!params.hasOwnProperty('out')){
-		params.out = name.replace(':', '_') + '_' + params.template.replace('.', '');
+		params.out = name.replace(':', '_') + '_' + paramsCss.template.replace('.', '');
 	}
 
 	let entry = Encore.BXComponent.getStyleEntry(
 		name,
-		Object.assign({}, {app: 'app.sass', template: '.default', siteTemplate: false}, params)
+		Object.assign({}, paramsCss, params)
 	);
 	return Encore.addStyleEntry(entry.build, entry.app);
 };

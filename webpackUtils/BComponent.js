@@ -75,11 +75,15 @@ class BComponent {
 
 			// если в параметрах указан siteTemplate, значит компонент лежит там и пути надо строить с его учетом
 			if(params.siteTemplate){
-				appPath = path.join(folder, params.siteTemplate, params.template, 'app');
-				buildPath = path.join(folder, params.siteTemplate, params.template);
+				appPath = path.join(folder, params.template, 'app');
+				buildPath = path.join(folder, params.template);
 			} else {
 				appPath = path.join(folder, 'app');
-				buildPath = path.join(folder, 'templates', params.template);
+				if(arName[0] === 'bitrix'){
+					buildPath = path.join(folder, params.template);
+				} else {
+					buildPath = path.join(folder, 'templates', params.template);
+				}
 			}
 
 			// если в компоненте нет папки /app - создадим ее
@@ -176,9 +180,10 @@ class BComponent {
 
 		if (!_.isEmpty(siteTemplate)) {
 			appVariables.local.siteTemplate = _.concat(this.props.root, 'local', 'templates', siteTemplate, 'components', name);
+		} else {
+			appVariables.local.defaultTemplate = _.concat(this.props.root, 'local', 'templates', '.default', 'components', name);
 		}
 
-		appVariables.local.defaultTemplate = _.concat(this.props.root, 'local', 'templates', '.default', 'components', name);
 		appVariables.local.default = _.concat(this.props.root, 'local', 'components', name);
 
 		let folder = '', tmpDir = '';
